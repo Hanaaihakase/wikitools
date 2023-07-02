@@ -1,4 +1,5 @@
 import requests
+import re
 from file import *
 
 def create_name(title, site, lang):
@@ -13,7 +14,7 @@ def create_dir(site, lang, type):
     return dir
 
 def get_wiki(title, site, lang, type):
-    # Output the complete name
+    # Output the complete name snd dir
     name = create_name(title, site, lang)
     dir = create_dir(site, lang, type)
 
@@ -29,3 +30,21 @@ def get_wiki(title, site, lang, type):
 
     # Write it
     file_write(dir, name, type, content)
+
+def delink(title, site, lang, type):
+    # Output the complete name snd dir
+    name = create_name(title, site, lang)
+    dir = create_dir(site, lang, type)
+
+    # Read the file from the file path
+    content = file_read(dir, name, type)
+    path = fr"{dir}\{name}.{type}"
+
+    # Delete all the <link>
+    content = re.sub(r'<link\s.*?>', '', content, flags=re.DOTALL)
+
+    # Write the file to the file path
+    file_write(dir, name, type, content)
+
+    print(fr"All <link> marks in {path} has been deleted!")
+

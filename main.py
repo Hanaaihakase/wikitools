@@ -1,6 +1,5 @@
 from wiki import *
 from option import *
-from link import *
 
 options = {
     "sites": {
@@ -42,7 +41,7 @@ if __name__ == "__main__":
             name = create_name(title, site, lang)
             dir = create_dir(site, lang, type)
             get_wiki(title, site, lang, type)
-            delink(dir, name, type)
+            delink(title, site, lang, type)
         elif option_choice == 2:
             # Get options from txt
             file_path = input("Enter the file path: ")
@@ -56,7 +55,7 @@ if __name__ == "__main__":
                 name = create_name(title, site, lang)
                 dir = create_dir(site, lang, type)
                 get_wiki(title, site, lang, type)
-                delink(dir, name, type)
+                delink(title, site, lang, type)
         else:
             raise ValueError("Invalid option number.")
 
