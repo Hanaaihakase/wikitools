@@ -44,7 +44,6 @@ if __name__ == "__main__":
             # Get options from txt
             file_path = input("Enter the file path: ")
             options_dict = get_option_from_txt(file_path)
-            print(options_dict)
             titles = list(options_dict.keys())
             for title in titles:
                 site = options["sites"][int(options_dict[title]["sites"])]
