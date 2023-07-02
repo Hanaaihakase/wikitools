@@ -1,31 +1,31 @@
 import requests
-import os
 from file import *
-from link import *
 
-def get_wiki(title,save_title,save_type,save_site,save_lang,save_path):
-    # 使用Wikisource API獲取頁面內容
-    url = f"https://{save_lang}.{save_site}.org/w/api.php?action=query&prop=extracts&format=json&titles={title}"
+def create_name(title, site, lang):
+    # Output the complete name
+    name = f"{title}_{lang}_{site}"
+    name = name.replace("/", "_")
+    return name
+
+def create_dir(site, lang, type):
+    # Output the complete directory
+    dir = fr".\{site}\{lang}\{type}"
+    return dir
+
+def get_wiki(title, site, lang, type):
+    # Output the complete name
+    name = create_name(title, site, lang)
+    dir = create_dir(site, lang, type)
+
+    # Use the Wiki API to get the page content
+    url = f"https://{lang}.{site}.org/w/api.php?action=query&prop=extracts&format=json&titles={title}"
     print(f"The url link is {url}")
     response = requests.get(url)
     data = response.json()
-    print(data)
 
-    # 解析響應，獲取頁面內容
+    # Get the content
     page = data["query"]["pages"]
     content = page[next(iter(page))]["extract"]
 
-    save_content = content
-
-    # 保存文件
-    file_save(save_title,save_type,save_content,save_path)
-
-def get_and_delink_wiki(save_site,save_lang,save_type,title):
-    # Save wiki and delink
-    save_title = f"{title}_{save_lang}_{save_site}"
-    save_title = save_title.replace("/", "_")
-    filename = f"{save_title}.{save_type}"
-    save_path = fr".\{save_site}\{save_lang}\{save_type}"
-
-    get_wiki(title, save_title, save_type, save_site, save_lang, save_path)
-    delink(filename,save_path)
+    # Write it
+    file_write(dir, name, type, content)

@@ -1,5 +1,6 @@
 from wiki import *
 from option import *
+from link import *
 
 options = {
     "sites": {
@@ -34,11 +35,14 @@ if __name__ == "__main__":
 
         if option_choice == 1:
             # Get user input for site, lang, and type
-            save_site = get_option_from_input(options["sites"], "site")
-            save_lang = get_option_from_input(options["langs"], "language")
-            save_type = get_option_from_input(options["types"], "save type")
+            site = get_option_from_input(options["sites"], "site")
+            lang = get_option_from_input(options["langs"], "language")
+            type = get_option_from_input(options["types"], "save type")
             title = input("Enter a title: ")
-            get_and_delink_wiki(save_site,save_lang,save_type,title)
+            name = create_name(title, site, lang)
+            dir = create_dir(site, lang, type)
+            get_wiki(title, site, lang, type)
+            delink(dir, name, type)
         elif option_choice == 2:
             # Get options from txt
             file_path = input("Enter the file path: ")
@@ -46,10 +50,13 @@ if __name__ == "__main__":
             print(options_dict)
             titles = list(options_dict.keys())
             for title in titles:
-                save_site = options["sites"][int(options_dict[title]["sites"])]
-                save_lang = options["langs"][int(options_dict[title]["langs"])]
-                save_type = options["types"][int(options_dict[title]["types"])]
-                get_and_delink_wiki(save_site,save_lang,save_type,title)
+                site = options["sites"][int(options_dict[title]["sites"])]
+                lang = options["langs"][int(options_dict[title]["langs"])]
+                type = options["types"][int(options_dict[title]["types"])]
+                name = create_name(title, site, lang)
+                dir = create_dir(site, lang, type)
+                get_wiki(title, site, lang, type)
+                delink(dir, name, type)
         else:
             raise ValueError("Invalid option number.")
 

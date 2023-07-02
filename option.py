@@ -7,7 +7,6 @@ def get_option_from_input(options_dict, option_name):
         raise ValueError("Invalid option number.")
     return options_dict[choice]
 
-
 def get_option_from_txt(file_path):
     options_dict = {}
     with open(file_path, "r") as file:

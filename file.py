@@ -1,16 +1,27 @@
 import os
 
-def dir_make(dir_path):
-    # 确保目录存在
-    os.makedirs(dir_path, exist_ok=True)
+def file_write(file_dir, file_name, file_type, file_content):
+    # Ensure the file path exists
+    os.makedirs(file_dir, exist_ok=True)
 
-def file_save(save_title, save_type, save_content, save_path):
-    # 确保保存路径存在
-    dir_make(save_path)
+    # Create the file path
+    file_path = fr"{file_dir}\{file_name}.{file_type}"
 
-    # 将内容保存到本地文件
-    file_path = os.path.join(save_path, f"{os.path.basename(save_title)}.{save_type}")
+    # Write the file content to the file path
     with open(file_path, "w", encoding="utf-8") as file:
-        file.write(save_content)
+        file.write(file_content)
 
-    print(f"{file_path} has been saved!")
+    print(f"{file_path} has been written!")
+
+def file_read(file_dir, file_name, file_type):
+    # Create the file path
+    file_path = fr"{file_dir}\{file_name}.{file_type}"
+
+    # Read the file content from the file path
+    with open(file_path, "r", encoding="utf-8") as file:
+        file_content = file.read()
+    
+    print(f"{file_path} has been read!")
+
+    # Return the file content
+    return file_content

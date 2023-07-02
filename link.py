@@ -1,19 +1,15 @@
-import os
 import re
+from file import *
 
-def delink(filename, file_path):
-    # 将文件路径和文件名组合成完整的路径
-    file_path = os.path.join(file_path, filename)
+def delink(file_dir, file_name, file_type):
+    # Read the file from the file path
+    file_content = file_read(file_dir, file_name, file_type)
+    file_path = fr"{file_dir}\{file_name}.{file_type}"
 
-    # 打开文件并读取内容
-    with open(file_path, "r") as f:
-        content = f.read()
+    # Delete all the <link>
+    file_content = re.sub(r'<link\s.*?>', '', file_content, flags=re.DOTALL)
 
-    # 删除所有的<link>标记
-    content = re.sub(r'<link\s.*?>', '', content, flags=re.DOTALL)
+    # Write the file to the file path
+    file_write(file_dir, file_name, file_type, file_content)
 
-    # 将修改后的内容写回文件
-    with open(file_path, "w") as f:
-        f.write(content)
-
-    print(f"All <link> marks in {file_path} has been deleted!")
+    print(fr"All <link> marks in {file_path} has been deleted!")
