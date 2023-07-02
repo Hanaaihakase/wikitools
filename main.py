@@ -38,8 +38,6 @@ if __name__ == "__main__":
             lang = get_option_from_input(options["langs"], "language")
             type = get_option_from_input(options["types"], "save type")
             title = input("Enter a title: ")
-            name = create_name(title, site, lang)
-            dir = create_dir(site, lang, type)
             get_wiki(title, site, lang, type)
             delink(title, site, lang, type)
         elif option_choice == 2:
@@ -52,8 +50,6 @@ if __name__ == "__main__":
                 site = options["sites"][int(options_dict[title]["sites"])]
                 lang = options["langs"][int(options_dict[title]["langs"])]
                 type = options["types"][int(options_dict[title]["types"])]
-                name = create_name(title, site, lang)
-                dir = create_dir(site, lang, type)
                 get_wiki(title, site, lang, type)
                 delink(title, site, lang, type)
         else:
