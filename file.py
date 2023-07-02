@@ -20,7 +20,7 @@ def file_read(file_dir, file_name, file_type):
     # Read the file content from the file path
     with open(file_path, "r", encoding="utf-8") as file:
         file_content = file.read()
-    
+
     print(f"{file_path} has been read!")
 
     # Return the file content
